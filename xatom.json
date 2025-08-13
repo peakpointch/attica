@@ -1,8 +1,10 @@
 {
-  "webflowSubdomain": "YOUR_WEBFLOW_SUBDOMAIN",
+  "webflowSubdomain": "attica-restaurant",
   "port": 3020,
   "source": "./src/app.ts",
   "dist": "./dist",
-  "scriptList": ["app.js"],
+  "scriptList": [
+    "app.js"
+  ],
   "scriptAttribute": "xa-script"
 }
