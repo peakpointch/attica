@@ -1,0 +1,1 @@
+//xatom template
