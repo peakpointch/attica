@@ -107,6 +107,29 @@ export function initNavAnimation(): void {
   let navIsLight = false; // Tracks current navbar state
   let navButtonIsHidden = false;
 
+  // Set initial nav state on load
+  const anyLightSection = Array.from(lightSections).some((el) =>
+    ScrollTrigger.isInViewport(el, 0.5),
+  );
+  if (anyLightSection) {
+    navToLight(navComponents);
+    navIsLight = true;
+  } else {
+    navToDefault(navComponents);
+    navIsLight = false;
+  }
+
+  const anyBrandNav = Array.from(brandElements).some((el) =>
+    ScrollTrigger.isInViewport(el, 0.2),
+  );
+  if (anyBrandNav) {
+    hideNavCTA(navComponents);
+    navButtonIsHidden = true;
+  } else {
+    showNavCTA(navComponents);
+    navButtonIsHidden = false;
+  }
+
   lightSections.forEach((section) => {
     ScrollTrigger.create({
       trigger: section,
@@ -178,27 +201,4 @@ export function initNavAnimation(): void {
       },
     });
   });
-
-  // Set initial nav state on load
-  const anyLightSection = Array.from(lightSections).some((el) =>
-    ScrollTrigger.isInViewport(el, 0.5),
-  );
-  if (anyLightSection) {
-    navToLight(navComponents);
-    navIsLight = true;
-  } else {
-    navToDefault(navComponents);
-    navIsLight = false;
-  }
-
-  const anyBrandNav = Array.from(brandElements).some((el) =>
-    ScrollTrigger.isInViewport(el, 0.2),
-  );
-  if (anyBrandNav) {
-    hideNavCTA(navComponents);
-    navButtonIsHidden = true;
-  } else {
-    showNavCTA(navComponents);
-    navButtonIsHidden = false;
-  }
 }
