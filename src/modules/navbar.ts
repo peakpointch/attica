@@ -10,7 +10,8 @@ type AnimateElement =
   | "nav-link"
   | "nav-button"
   | "light-nav"
-  | "nav-brand-fixed";
+  | "nav-brand-fixed"
+  | "nav-cta";
 const animateSelector = createAttribute<AnimateElement>("data-animate");
 
 export function hideNavCTA(
@@ -19,7 +20,7 @@ export function hideNavCTA(
   if (!nav) throw new Error(`Please pass a navbar to animate.`);
   const navComponents = nav instanceof HTMLElement ? [nav] : Array.from(nav);
   navComponents.forEach((component) => {
-    const button = component.querySelector(".button");
+    const button = component.querySelector(animateSelector("nav-cta"));
     gsap.to(button, {
       translateY: "-5rem",
       ease: "power1.out",
@@ -34,7 +35,7 @@ export function showNavCTA(
   if (!nav) throw new Error(`Please pass a navbar to animate.`);
   const navComponents = nav instanceof HTMLElement ? [nav] : Array.from(nav);
   navComponents.forEach((component) => {
-    const button = component.querySelector(".button");
+    const button = component.querySelector(animateSelector("nav-cta"));
     gsap.to(button, {
       translateY: "0rem",
       ease: "power1.out",
