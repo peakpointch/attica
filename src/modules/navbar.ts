@@ -10,7 +10,7 @@ type AnimateElement =
   | "nav-link"
   | "nav-button"
   | "light-nav"
-  | "top-brand";
+  | "nav-brand-fixed";
 const animateSelector = createAttribute<AnimateElement>("data-animate");
 
 export function hideNavCTA(
@@ -101,7 +101,7 @@ export function initNavAnimation(): void {
     document.querySelectorAll<HTMLElement>(animateSelector("light-nav")),
   );
   const brandElements = Array.from(
-    document.querySelectorAll<HTMLElement>(animateSelector("top-brand")),
+    document.querySelectorAll<HTMLElement>(animateSelector("nav-brand-fixed")),
   );
 
   let navIsLight = false; // Tracks current navbar state
@@ -110,8 +110,8 @@ export function initNavAnimation(): void {
   lightSections.forEach((section) => {
     ScrollTrigger.create({
       trigger: section,
-      start: "top top", // when section top enters top of viewport
-      end: "bottom top", // when section bottom leaves top of viewport
+      start: "top-=40px top", // when section top enters top of viewport
+      end: "bottom-=40px top", // when section bottom leaves top of viewport
       onEnter: () => {
         // console.log("ENTER      -- NAV IS LIGHT:", navIsLight);
         if (!navIsLight) {
