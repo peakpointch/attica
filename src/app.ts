@@ -1,7 +1,6 @@
 import { onReady } from "@xatom/core";
-import { helloWorldRoutes } from "./routes";
+import { initNavAnimation } from "./modules/navbar";
 
 onReady(() => {
-  helloWorldRoutes();
+  initNavAnimation();
 });
-
