@@ -83,17 +83,60 @@ function attachInfoboxListeners(infobox: Modal): void {
   closeButtons.forEach((closeBtn) => {
     closeBtn.addEventListener("click", () => closeInfobox(infobox));
   });
+
+  const openButtons = infobox.selectAll("open", false);
+  openButtons.forEach((openBtn) => {
+    openBtn.addEventListener("click", () => infobox.open());
+  });
+}
+
+function hideOpenButton(
+  button: HTMLElement | HTMLElement[] | NodeListOf<HTMLElement>,
+): void {
+  if (!button) throw new Error(`Please pass a navbar to animate.`);
+  const buttons = button instanceof HTMLElement ? [button] : Array.from(button);
+  buttons.forEach((button) => {
+    gsap.to(button, {
+      opacity: 0,
+      translateY: "5rem",
+      ease: "power1.out",
+      duration: 0.2,
+    });
+  });
+}
+
+function showOpenButton(
+  button: HTMLElement | HTMLElement[] | NodeListOf<HTMLElement>,
+): void {
+  if (!button) throw new Error(`Please pass a navbar to animate.`);
+  const buttons = button instanceof HTMLElement ? [button] : Array.from(button);
+  buttons.forEach((button) => {
+    gsap.to(button, {
+      opacity: 1,
+      translateY: "0rem",
+      ease: "power1.out",
+      duration: 0.2,
+    });
+  });
 }
 
 export function initInfobox(): void {
   const infobox = getInfobox();
   const currentId = getInfoboxSlug(infobox);
-  if (!currentId) return; // No infobox is published from webflow cms
+  const openButtons = infobox.selectAll("open", false);
+  if (!currentId) {
+    // No infobox is published from webflow cms
+    hideOpenButton(openButtons);
+    return;
+  } else {
+    showOpenButton(openButtons);
+  }
+
+  attachInfoboxListeners(infobox);
 
   const lastClosedInfobox = getCookie("infobox");
   if (currentId === lastClosedInfobox) return;
 
-  attachInfoboxListeners(infobox);
   setTimeout(() => {
     infobox.open();
   }, 3000);
