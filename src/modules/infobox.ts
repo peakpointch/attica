@@ -1,8 +1,9 @@
 import { Modal } from "../../node_modules/peakflow/dist/modal/index";
-import { createAttribute } from "../../node_modules/peakflow/dist/attributeselector/index";
+// import { createAttribute } from "../../node_modules/peakflow/dist/attributeselector/index";
 
-function getInfobox(): Modal {
+function getInfobox(): Modal | null {
   const infoboxElement = Modal.select("component", "infobox");
+  if (!infoboxElement) return null;
   const infobox = new Modal(infoboxElement, {
     animation: {
       type: "slideUp",
@@ -50,7 +51,7 @@ function getCookie(name: string): string | null {
 }
 
 function getInfoboxWfItem(infobox: Modal): HTMLElement {
-  return infobox.component.querySelector("[data-infobox-id]");
+  return infobox?.component.querySelector("[data-infobox-id]");
 }
 
 function getInfoboxSlug(infobox: Modal): string | null {
@@ -122,6 +123,8 @@ function showOpenButton(
 
 export function initInfobox(): void {
   const infobox = getInfobox();
+  if (!infobox) return;
+
   const currentId = getInfoboxSlug(infobox);
   const openButtons = infobox.selectAll("open", false);
   if (!currentId) {
