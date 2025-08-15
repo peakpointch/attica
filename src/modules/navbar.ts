@@ -173,28 +173,28 @@ export function initNavAnimation(): void {
       start: "top-=80px top",
       end: "bottom+=10px top",
       onEnter: () => {
-        console.log("ENTER      -- NAV CTA IS HIDDEN:", navButtonIsHidden);
+        // console.log("ENTER      -- NAV CTA IS HIDDEN:", navButtonIsHidden);
         if (!navButtonIsHidden) {
           hideNavCTA(navComponents);
           navButtonIsHidden = true;
         }
       },
       onEnterBack: () => {
-        console.log("ENTER BACK -- NAV CTA IS HIDDEN:", navButtonIsHidden);
+        // console.log("ENTER BACK -- NAV CTA IS HIDDEN:", navButtonIsHidden);
         if (!navButtonIsHidden) {
           hideNavCTA(navComponents);
           navButtonIsHidden = true;
         }
       },
       onLeave: () => {
-        console.log("LEAVE      -- NAV CTA IS HIDDEN:", navButtonIsHidden);
+        // console.log("LEAVE      -- NAV CTA IS HIDDEN:", navButtonIsHidden);
         if (navButtonIsHidden) {
           showNavCTA(navComponents);
           navButtonIsHidden = false;
         }
       },
       onLeaveBack: () => {
-        console.log("LEAVE BACK -- NAV CTA IS HIDDEN:", navButtonIsHidden);
+        // console.log("LEAVE BACK -- NAV CTA IS HIDDEN:", navButtonIsHidden);
         if (navButtonIsHidden) {
           showNavCTA(navComponents);
           navButtonIsHidden = false;
