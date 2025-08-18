@@ -69,6 +69,12 @@ function getInfoboxDays(infobox: Modal): number | null {
   return parseFloat(daysString);
 }
 
+function openInfobox(infobox: Modal): void {
+  const openButtons = infobox.selectAll("open", false);
+  infobox.open();
+  hideOpenButton(openButtons);
+}
+
 function closeInfobox(infobox: Modal): void {
   const infoboxId = getInfoboxSlug(infobox) as string;
   setCookie({
@@ -77,6 +83,8 @@ function closeInfobox(infobox: Modal): void {
     days: getInfoboxDays(infobox) ?? 30,
   });
   infobox.close();
+  const openButtons = infobox.selectAll("open", false);
+  showOpenButton(openButtons);
 }
 
 function attachInfoboxListeners(infobox: Modal): void {
@@ -87,14 +95,14 @@ function attachInfoboxListeners(infobox: Modal): void {
 
   const openButtons = infobox.selectAll("open", false);
   openButtons.forEach((openBtn) => {
-    openBtn.addEventListener("click", () => infobox.open());
+    openBtn.addEventListener("click", () => openInfobox(infobox));
   });
 }
 
 function hideOpenButton(
   button: HTMLElement | HTMLElement[] | NodeListOf<HTMLElement>,
 ): void {
-  if (!button) throw new Error(`Please pass a navbar to animate.`);
+  if (!button) throw new Error(`Please pass an infobox button to animate.`);
   const buttons = button instanceof HTMLElement ? [button] : Array.from(button);
   buttons.forEach((button) => {
     gsap.to(button, {
@@ -109,7 +117,7 @@ function hideOpenButton(
 function showOpenButton(
   button: HTMLElement | HTMLElement[] | NodeListOf<HTMLElement>,
 ): void {
-  if (!button) throw new Error(`Please pass a navbar to animate.`);
+  if (!button) throw new Error(`Please pass an infobox button to animate.`);
   const buttons = button instanceof HTMLElement ? [button] : Array.from(button);
   buttons.forEach((button) => {
     gsap.to(button, {
@@ -141,6 +149,6 @@ export function initInfobox(): void {
   if (currentId === lastClosedInfobox) return;
 
   setTimeout(() => {
-    infobox.open();
+    openInfobox(infobox);
   }, 3000);
 }
