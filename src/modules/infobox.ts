@@ -1,5 +1,5 @@
-import { Modal } from "../../node_modules/peakflow/dist/modal/index";
-// import { createAttribute } from "../../node_modules/peakflow/dist/attributeselector/index";
+import { Modal } from "peakflow/modal";
+import { getFsConsents } from "peakflow/fscc";
 
 function getInfobox(): Modal | null {
   const infoboxElement = Modal.select("component", "infobox");
@@ -77,11 +77,14 @@ function openInfobox(infobox: Modal): void {
 
 function closeInfobox(infobox: Modal): void {
   const infoboxId = getInfoboxSlug(infobox) as string;
-  setCookie({
-    name: "infobox",
-    value: infoboxId,
-    days: getInfoboxDays(infobox) ?? 30,
-  });
+  const consents = getFsConsents();
+  if (consents.essential) {
+    setCookie({
+      name: "infobox",
+      value: infoboxId,
+      days: getInfoboxDays(infobox) ?? 30,
+    });
+  }
   infobox.close();
   const openButtons = infobox.selectAll("open", false);
   showOpenButton(openButtons);
