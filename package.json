@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "start": "xatom dev",
-    "build": "xatom build"
+    "dev": "devflow dev",
+    "build": "devflow build"
   },
   "license": "MIT",
   "dependencies": {
     "@xatom/core": "1.0.12",
+    "devflow": "github:peakpointch/devflow",
     "gsap": "^3.13.0",
     "peakflow": "github:peakpointch/peakflow"
   }
